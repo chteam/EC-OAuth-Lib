@@ -100,13 +100,17 @@ namespace Microsoft.Owin.Security.Jd
                     refreshToken, expire,uid,userNick);
                 Debug.WriteLine(accessToken);
                 Debug.WriteLine(refreshToken);
+                
                 context.Identity = new ClaimsIdentity(
                     new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, context.Id, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim(ClaimTypes.Name, context.Name, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim("UId", context.Id, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim("UserNick", context.Name, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType)
+                        new Claim(ClaimTypes.NameIdentifier, context.Id, ClaimValueTypes.String, Options.AuthenticationType),
+                        new Claim(ClaimTypes.Name, context.Name, ClaimValueTypes.String, Options.AuthenticationType),
+                        new Claim("jd:UId", context.Id, ClaimValueTypes.String, Options.AuthenticationType),
+                        new Claim("jd:UserNick", context.Name, ClaimValueTypes.String, Options.AuthenticationType),
+                        new Claim("jd:ExpiredTime", context.ExpiresTime.ToString(), ClaimValueTypes.DateTime, Options.AuthenticationType),
+                        new Claim("jd:AccessToken", context.AccessToken, ClaimValueTypes.String, Options.AuthenticationType),
+                        new Claim("jd:RefreshToken", context.RefreshToken, ClaimValueTypes.String, Options.AuthenticationType),
                     },
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,

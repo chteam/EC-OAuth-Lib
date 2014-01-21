@@ -37,6 +37,7 @@ namespace Microsoft.Owin.Security.Jd.Provider
             if (Int32.TryParse(expires, NumberStyles.Integer, CultureInfo.InvariantCulture, out expiresValue))
             {
                 ExpiresIn = TimeSpan.FromSeconds(expiresValue);
+                ExpiresTime = DateTime.Now.Add(ExpiresIn.Value);
             }
 
 
@@ -90,6 +91,7 @@ namespace Microsoft.Owin.Security.Jd.Provider
         /// Gets or sets a property bag for common authentication properties
         /// </summary>
         public AuthenticationProperties Properties { get; set; }
- 
+
+        public DateTime ExpiresTime { get; set; }
     }
 }
