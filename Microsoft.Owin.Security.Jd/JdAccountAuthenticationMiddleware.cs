@@ -34,11 +34,11 @@ namespace Microsoft.Owin.Security.Jd
         {
             if (string.IsNullOrWhiteSpace(Options.AppKey))
             {
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, "ClientId"));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, "AppKey"));
             }
             if (string.IsNullOrWhiteSpace(Options.Secret))
             {
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, "ClientSecret"));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, "Secret"));
             }
 
             _logger = app.CreateLogger<JdAccountAuthenticationMiddleware>();
@@ -67,7 +67,7 @@ namespace Microsoft.Owin.Security.Jd
         /// <summary>
         /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="MicrosoftAccountAuthenticationOptions"/> supplied to the constructor.</returns>
+        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="JdAccountAuthenticationOptions"/> supplied to the constructor.</returns>
         protected override AuthenticationHandler<JdAccountAuthenticationOptions> CreateHandler()
         {
             return new JdAccountAuthenticationHandler(_httpClient, _logger);
