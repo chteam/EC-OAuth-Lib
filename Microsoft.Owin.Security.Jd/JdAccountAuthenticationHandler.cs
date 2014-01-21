@@ -98,8 +98,6 @@ namespace Microsoft.Owin.Security.Jd
 
                 var context = new JdAccountAuthenticatedContext(Context, accessToken,
                     refreshToken, expire,uid,userNick);
-                Debug.WriteLine(accessToken);
-                Debug.WriteLine(refreshToken);
                 
                 context.Identity = new ClaimsIdentity(
                     new[]
