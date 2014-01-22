@@ -31,7 +31,7 @@ namespace Microsoft.Owin.Security.Jd
             }
             return false;
         }
-
+        
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
             AuthenticationProperties properties = null;
@@ -55,7 +55,13 @@ namespace Microsoft.Owin.Security.Jd
                 properties = Options.StateDataFormat.Unprotect(state);
                 if (properties == null)
                 {
+                    if (string.IsNullOrWhiteSpace(code))
+                    {
+                        return null;
+                    }
+                   
                     return null;
+
                 }
 
                 // OAuth2 10.12 CSRF
@@ -187,7 +193,8 @@ namespace Microsoft.Owin.Security.Jd
             if (model == null)
             {
                 _logger.WriteWarning("Invalid return state, unable to redirect.");
-                Response.StatusCode = 500;
+                Response.Redirect(Options.DefaultCallBack);
+                //Response.StatusCode = 500;
                 return true;
             }
 

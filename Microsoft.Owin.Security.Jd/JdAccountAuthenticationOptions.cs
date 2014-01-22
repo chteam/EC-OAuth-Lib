@@ -17,6 +17,7 @@ namespace Microsoft.Owin.Security.Jd
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>();
             BackchannelTimeout = TimeSpan.FromSeconds(60);
+            DefaultCallBack = string.Format("/Account/ExternalLogin?provider={0}", AuthenticationType);
         }
 
         /// <summary>
@@ -93,5 +94,7 @@ namespace Microsoft.Owin.Security.Jd
         /// Gets or sets the type used to secure data handled by the middleware.
         /// </summary>
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
+
+        public string DefaultCallBack { get; set; }
     }
 }
